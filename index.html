@@ -279,8 +279,39 @@
         .card-title {
             font-size: 22px;
             color: #2c3e50;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
             font-weight: 600;
+        }
+
+        .dog-info {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            border-left: 4px solid #f39c12;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #e9ecef;
+            font-size: 14px;
+        }
+
+        .info-row:last-child {
+            border-bottom: none;
+        }
+
+        .info-label {
+            color: #6c757d;
+            font-weight: 500;
+        }
+
+        .info-value {
+            color: #2c3e50;
+            font-weight: 600;
+            text-align: right;
         }
 
         .card-description {
@@ -425,18 +456,48 @@
                     <button class="favorite-btn" onclick="toggleFavorite(this)">🤍</button>
                 </div>
                 <div class="card-content">
-                    <div class="card-price">700€</div>
-                    <div class="card-title">Berger Allemand</div>
+                    <div class="card-price">600€</div>
+                    <div class="card-title">Rex - Malinois Belge</div>
+                    
+                    <div class="dog-info">
+                        <div class="info-row">
+                            <span class="info-label">Race</span>
+                            <span class="info-value">Malinois Belge</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Origine</span>
+                            <span class="info-value">Belgique</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Type morphologique</span>
+                            <span class="info-value">Lupoïde</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Taille</span>
+                            <span class="info-value">56-66 cm</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Poids</span>
+                            <span class="info-value">20-30 kg</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Espérance de vie</span>
+                            <span class="info-value">12-14 ans</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Robe</span>
+                            <span class="info-value">Fauve charbonné</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Poil</span>
+                            <span class="info-value">Court et dense</span>
+                        </div>
+                    </div>
+                    
                     <div class="card-description">
-                          Caractéristiques Berger Allemand
-Type morphologique : Lupoïde
-Poil : Double, dense, droit, rude et bien couché
-Entretien : Toilettage modéré
-Robe : Noire avec des marques brunes, brun-rouge ou jaunes jusqu’à gris clair – Noire et grise unicolore (gris charbonné) – Manteau et masque noirs
-Taille : Grande (55 à 60 cm pour les femelles et 60 à 65 cm pour les mâles)
-Poids : 22 à 32 kg pour les femelles – 30 à 40 kg pour les mâles
-Espérance de vie : 9 à 13 ans
-                    <div class="card-location">📍 paris , france</div>
+                        Magnifique chiot Malinois de 3 mois, parfaitement socialisé. Parents champions de travail. Vaccins à jour, pucé et vermifugé. Idéal pour la famille ou le travail de sécurité.
+                    </div>
+                    <div class="card-location">📍 Lyon, France</div>
                     <div class="social-buttons">
                         <a href="https://www.facebook.com/sell.dog" target="_blank" class="social-btn facebook" title="Commander sur Facebook">
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
@@ -467,10 +528,46 @@ Espérance de vie : 9 à 13 ans
                 <div class="card-content">
                     <div class="card-price on-demand">Prix sur demande</div>
                     <div class="card-title">Luna - Berger Allemand</div>
+                    
+                    <div class="dog-info">
+                        <div class="info-row">
+                            <span class="info-label">Race</span>
+                            <span class="info-value">Berger Allemand</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Origine</span>
+                            <span class="info-value">Allemagne</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Type morphologique</span>
+                            <span class="info-value">Lupoïde</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Taille</span>
+                            <span class="info-value">55-65 cm</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Poids</span>
+                            <span class="info-value">22-40 kg</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Espérance de vie</span>
+                            <span class="info-value">9-13 ans</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Robe</span>
+                            <span class="info-value">Noir et feu</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Poil</span>
+                            <span class="info-value">Double, dense, droit</span>
+                        </div>
+                    </div>
+                    
                     <div class="card-description">
                         Adorable chiot femelle de 1 mois, lignée pure race. Caractère doux et joueur. Parents avec excellent pedigree. Certificat de bonne santé disponible. Prête à rejoindre sa nouvelle famille.
                     </div>
-                    <div class="card-location">📍 Yaoundé, Cameroun</div>
+                    <div class="card-location">📍 Lyon, France</div>
                 </div>
             </div>
 
@@ -484,10 +581,46 @@ Espérance de vie : 9 à 13 ans
                 <div class="card-content">
                     <div class="card-price">75 000 CFA</div>
                     <div class="card-title">Duke - Rottweiler</div>
+                    
+                    <div class="dog-info">
+                        <div class="info-row">
+                            <span class="info-label">Race</span>
+                            <span class="info-value">Rottweiler</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Origine</span>
+                            <span class="info-value">Allemagne</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Type morphologique</span>
+                            <span class="info-value">Molossoïde</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Taille</span>
+                            <span class="info-value">56-68 cm</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Poids</span>
+                            <span class="info-value">42-50 kg</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Espérance de vie</span>
+                            <span class="info-value">8-10 ans</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Robe</span>
+                            <span class="info-value">Noir et feu</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Poil</span>
+                            <span class="info-value">Court et dur</span>
+                        </div>
+                    </div>
+                    
                     <div class="card-description">
                         Superbe Rottweiler de 2 mois, fort et équilibré. Excellent gardien en devenir. Élevé en famille avec enfants. Vaccination complète, suivi vétérinaire rigoureux. Papiers officiels fournis.
                     </div>
-                    <div class="card-location">📍 Yaoundé, Cameroun</div>
+                    <div class="card-location">📍 Lyon, France</div>
                 </div>
             </div>
 
@@ -501,10 +634,46 @@ Espérance de vie : 9 à 13 ans
                 <div class="card-content">
                     <div class="card-price">120 000 CFA</div>
                     <div class="card-title">Bella - Golden Retriever</div>
+                    
+                    <div class="dog-info">
+                        <div class="info-row">
+                            <span class="info-label">Race</span>
+                            <span class="info-value">Golden Retriever</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Origine</span>
+                            <span class="info-value">Grande-Bretagne</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Type morphologique</span>
+                            <span class="info-value">Braccoïde</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Taille</span>
+                            <span class="info-value">51-61 cm</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Poids</span>
+                            <span class="info-value">27-34 kg</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Espérance de vie</span>
+                            <span class="info-value">10-12 ans</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Robe</span>
+                            <span class="info-value">Or à crème</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Poil</span>
+                            <span class="info-value">Long, plat ou ondulé</span>
+                        </div>
+                    </div>
+                    
                     <div class="card-description">
                         Magnifique Golden Retriever femelle de 3 mois, au tempérament exceptionnel. Très affectueuse et intelligente. Parents primés en exposition. Parfaite pour famille avec enfants. LOF disponible.
                     </div>
-                    <div class="card-location">📍 Yaoundé, Cameroun</div>
+                    <div class="card-location">📍 Lyon, France</div>
                 </div>
             </div>
 
@@ -518,10 +687,46 @@ Espérance de vie : 9 à 13 ans
                 <div class="card-content">
                     <div class="card-price">85 000 CFA</div>
                     <div class="card-title">Max - Doberman</div>
+                    
+                    <div class="dog-info">
+                        <div class="info-row">
+                            <span class="info-label">Race</span>
+                            <span class="info-value">Doberman</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Origine</span>
+                            <span class="info-value">Allemagne</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Type morphologique</span>
+                            <span class="info-value">Braccoïde</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Taille</span>
+                            <span class="info-value">63-72 cm</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Poids</span>
+                            <span class="info-value">32-45 kg</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Espérance de vie</span>
+                            <span class="info-value">10-13 ans</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Robe</span>
+                            <span class="info-value">Noir et feu</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Poil</span>
+                            <span class="info-value">Court, serré et lisse</span>
+                        </div>
+                    </div>
+                    
                     <div class="card-description">
                         Superbe Doberman mâle de 4 mois, élégant et athlétique. Dressage de base commencé. Excellentes aptitudes de garde. Sociable avec les humains. Santé irréprochable, tous documents fournis.
                     </div>
-                    <div class="card-location">📍 Yaoundé, Cameroun</div>
+                    <div class="card-location">📍 Lyon, France</div>
                     <div class="social-buttons">
                         <a href="https://www.facebook.com/sell.dog" target="_blank" class="social-btn facebook" title="Commander sur Facebook">
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
@@ -552,10 +757,46 @@ Espérance de vie : 9 à 13 ans
                 <div class="card-content">
                     <div class="card-price">65 000 CFA</div>
                     <div class="card-title">Charlie - Beagle</div>
+                    
+                    <div class="dog-info">
+                        <div class="info-row">
+                            <span class="info-label">Race</span>
+                            <span class="info-value">Beagle</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Origine</span>
+                            <span class="info-value">Grande-Bretagne</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Type morphologique</span>
+                            <span class="info-value">Braccoïde</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Taille</span>
+                            <span class="info-value">33-40 cm</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Poids</span>
+                            <span class="info-value">9-11 kg</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Espérance de vie</span>
+                            <span class="info-value">12-15 ans</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Robe</span>
+                            <span class="info-value">Tricolore</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Poil</span>
+                            <span class="info-value">Court et dense</span>
+                        </div>
+                    </div>
+                    
                     <div class="card-description">
                         Adorable Beagle mâle de 2 mois, tricolore classique. Caractère joyeux et affectueux. Excellent compagnon de jeu pour enfants. Bien socialisé avec autres animaux. Tous vaccins effectués.
                     </div>
-                    <div class="card-location">📍 Yaoundé, Cameroun</div>
+                    <div class="card-location">📍 Lyon, France</div>
                     <div class="social-buttons">
                         <a href="https://www.facebook.com/sell.dog" target="_blank" class="social-btn facebook" title="Commander sur Facebook">
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
@@ -638,8 +879,9 @@ Espérance de vie : 9 à 13 ans
                 const title = card.querySelector('.card-title').textContent.toLowerCase();
                 const description = card.querySelector('.card-description').textContent.toLowerCase();
                 const location = card.querySelector('.card-location').textContent.toLowerCase();
+                const dogInfo = card.querySelector('.dog-info') ? card.querySelector('.dog-info').textContent.toLowerCase() : '';
                 
-                if (title.includes(searchTerm) || description.includes(searchTerm) || location.includes(searchTerm)) {
+                if (title.includes(searchTerm) || description.includes(searchTerm) || location.includes(searchTerm) || dogInfo.includes(searchTerm)) {
                     card.style.display = 'block';
                 } else {
                     card.style.display = 'none';
