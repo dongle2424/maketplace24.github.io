@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Dog - Marketplace Premium</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f2f5;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            box-shadow: 0 4px 12px rgba(243, 156, 18, 0.4);
+        }
+
+        .logo::before {
+            content: '🐕';
+            font-size: 32px;
+            position: absolute;
+        }
+
+        .logo::after {
+            content: '🛡️';
+            font-size: 20px;
+            position: absolute;
+            bottom: -5px;
+            right: -5px;
+            background: white;
+            border-radius: 50%;
+            padding: 2px;
+        }
+
+        .brand-name {
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .brand-name span {
+            color: #f39c12;
+        }
+
+        .search-container {
+            flex: 1;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 15px 50px 15px 20px;
+            border: none;
+            border-radius: 30px;
+            font-size: 16px;
+            background-color: #e8ebed;
+        }
+
+        .search-btn {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #666;
+            font-size: 20px;
+        }
+
+        .user-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(243, 156, 18, 0.3);
+        }
+
+        .user-icon::before {
+            content: '👤';
+            font-size: 28px;
+            color: white;
+        }
+
+        .filter-bar {
+            background-color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .filter-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 10px 20px;
+            border-radius: 10px;
+            transition: all 0.3s;
+        }
+
+        .filter-btn:hover {
+            background-color: #f8f9fa;
+        }
+
+        .filter-btn.active {
+            background: linear-gradient(135deg, #ffe8e8 0%, #ffd4d4 100%);
+        }
+
+        .filter-icon {
+            font-size: 28px;
+            color: #888;
+        }
+
+        .filter-btn.active .filter-icon {
+            color: #e74c3c;
+        }
+
+        .filter-label {
+            font-size: 14px;
+            color: #666;
+            font-weight: 500;
+        }
+
+        .filter-btn.active .filter-label {
+            color: #e74c3c;
+            font-weight: 600;
+        }
+
+        .divider {
+            width: 2px;
+            height: 40px;
+            background-color: #e0e0e0;
+        }
+
+        .settings-btn {
+            font-size: 28px;
+        }
+
+        .content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 30px 20px;
+        }
+
+        .section-title {
+            font-size: 28px;
+            color: #2c3e50;
+            margin-bottom: 30px;
+            font-weight: 600;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .card {
+            background-color: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+
+        .card-image {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .card-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background-color: rgba(0,0,0,0.7);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            backdrop-filter: blur(10px);
+        }
+
+        .favorite-btn {
+            position: absolute;
+            bottom: 15px;
+            right: 15px;
+            width: 50px;
+            height: 50px;
+            background-color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            transition: transform 0.2s;
+        }
+
+        .favorite-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .card-content {
+            padding: 20px;
+        }
+
+        .card-price {
+            font-size: 28px;
+            font-weight: bold;
+            color: #f39c12;
+            margin-bottom: 10px;
+        }
+
+        .card-price.on-demand {
+            color: #e67e22;
+        }
+
+        .card-title {
+            font-size: 22px;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .card-description {
+            color: #7f8c8d;
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 12px;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .card-location {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #95a5a6;
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+
+        .social-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #ecf0f1;
+        }
+
+        .social-btn {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px;
+            border-radius: 10px;
+            text-decoration: none;
+            color: white;
+            transition: all 0.3s;
+            font-weight: 600;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .social-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        .social-btn.facebook {
+            background: linear-gradient(135deg, #1877f2 0%, #0d5dce 100%);
+        }
+
+        .social-btn.whatsapp {
+            background: linear-gradient(135deg, #25d366 0%, #1ebe57 100%);
+        }
+
+        .social-btn.instagram {
+            background: linear-gradient(135deg, #833ab4 0%, #fd1d1d 50%, #fcb045 100%);
+        }
+
+        .verified-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: linear-gradient(135deg, #27ae60 0%, #229954 100%);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 15px;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .filter-bar {
+                overflow-x: auto;
+                justify-content: flex-start;
+                gap: 10px;
+            }
+
+            .filter-btn {
+                flex-shrink: 0;
+            }
+
+            .brand-name {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo-container">
+            <div class="logo"></div>
+            <div class="brand-name">Secure <span>Dog</span></div>
+        </div>
+        <div class="search-container">
+            <input type="text" class="search-input" placeholder="Chercher dans Secure Dog" id="searchInput">
+            <button class="search-btn">🔍</button>
+        </div>
+        <div class="user-icon"></div>
+    </div>
+
+    <div class="filter-bar">
+        <button class="filter-btn" onclick="filterBy('date')">
+            <div class="filter-icon">🕐</div>
+            <div class="filter-label">Date</div>
+        </button>
+        <button class="filter-btn" onclick="filterBy('price-up')">
+            <div class="filter-icon">↑</div>
+            <div class="filter-label">Prix</div>
+        </button>
+        <button class="filter-btn" onclick="filterBy('price-down')">
+            <div class="filter-icon">↓</div>
+            <div class="filter-label">Prix</div>
+        </button>
+        <div class="divider"></div>
+        <button class="filter-btn active" onclick="filterBy('top')">
+            <div class="filter-icon">⬆️</div>
+            <div class="filter-label">Top</div>
+        </button>
+        <button class="filter-btn settings-btn" onclick="openSettings()">
+            <div class="filter-icon">🎚️</div>
+        </button>
+    </div>
+
+    <div class="content">
+        <h1 class="section-title">🏆 Annonces les plus récentes</h1>
+        <div class="cards-grid" id="cardsGrid">
+            <div class="card" data-days="18" data-price="90000">
+                <div class="card-image">
+                    <img src="https://images.unsplash.com/photo-1568572933382-74d440642117?w=800&q=80" alt="Malinois Belge">
+                    <div class="card-badge">🕐 18 jours</div>
+                    <div class="verified-badge">✓ Vérifié</div>
+                    <button class="favorite-btn" onclick="toggleFavorite(this)">🤍</button>
+                </div>
+                <div class="card-content">
+                    <div class="card-price">90 000 CFA</div>
+                    <div class="card-title">Rex - Malinois Belge</div>
+                    <div class="card-description">
+                        Magnifique chiot Malinois de 3 mois, parfaitement socialisé. Parents champions de travail. Vaccins à jour, pucé et vermifugé. Idéal pour la famille ou le travail de sécurité.
+                    </div>
+                    <div class="card-location">📍 Yaoundé, Cameroun</div>
+                    <div class="social-buttons">
+                        <a href="https://www.facebook.com/sell.dog" target="_blank" class="social-btn facebook" title="Commander sur Facebook">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                            </svg>
+                        </a>
+                        <a href="https://wa.me/237673818077" target="_blank" class="social-btn whatsapp" title="Commander sur WhatsApp">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+                            </svg>
+                        </a>
+                        <a href="https://www.instagram.com/sell.dog5" target="_blank" class="social-btn instagram" title="Commander sur Instagram">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 0C8.74 0 8.333.015 7.053.072 5.775.132 4.905.333 4.14.63c-.789.306-1.459.717-2.126 1.384S.935 3.35.63 4.14C.333 4.905.131 5.775.072 7.053.012 8.333 0 8.74 0 12s.015 3.667.072 4.947c.06 1.277.261 2.148.558 2.913.306.788.717 1.459 1.384 2.126.667.666 1.336 1.079 2.126 1.384.766.296 1.636.499 2.913.558C8.333 23.988 8.74 24 12 24s3.667-.015 4.947-.072c1.277-.06 2.148-.262 2.913-.558.788-.306 1.459-.718 2.126-1.384.666-.667 1.079-1.335 1.384-2.126.296-.765.499-1.636.558-2.913.06-1.28.072-1.687.072-4.947s-.015-3.667-.072-4.947c-.06-1.277-.262-2.149-.558-2.913-.306-.789-.718-1.459-1.384-2.126C21.319 1.347 20.651.935 19.86.63c-.765-.297-1.636-.499-2.913-.558C15.667.012 15.26 0 12 0zm0 2.16c3.203 0 3.585.016 4.85.071 1.17.055 1.805.249 2.227.415.562.217.96.477 1.382.896.419.42.679.819.896 1.381.164.422.36 1.057.413 2.227.057 1.266.07 1.646.07 4.85s-.015 3.585-.074 4.85c-.061 1.17-.256 1.805-.421 2.227-.224.562-.479.96-.899 1.382-.419.419-.824.679-1.38.896-.42.164-1.065.36-2.235.413-1.274.057-1.649.07-4.859.07-3.211 0-3.586-.015-4.859-.074-1.171-.061-1.816-.256-2.236-.421-.569-.224-.96-.479-1.379-.899-.421-.419-.69-.824-.9-1.38-.165-.42-.359-1.065-.42-2.235-.045-1.26-.061-1.649-.061-4.844 0-3.196.016-3.586.061-4.861.061-1.17.255-1.814.42-2.234.21-.57.479-.96.9-1.381.419-.419.81-.689 1.379-.898.42-.166 1.051-.361 2.221-.421 1.275-.045 1.65-.06 4.859-.06l.045.03zm0 3.678c-3.405 0-6.162 2.76-6.162 6.162 0 3.405 2.76 6.162 6.162 6.162 3.405 0 6.162-2.76 6.162-6.162 0-3.405-2.76-6.162-6.162-6.162zM12 16c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm7.846-10.405c0 .795-.646 1.44-1.44 1.44-.795 0-1.44-.646-1.44-1.44 0-.794.646-1.439 1.44-1.439.793-.001 1.44.645 1.44 1.439z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" data-days="27" data-price="0">
+                <div class="card-image">
+                    <img src="https://images.unsplash.com/photo-1517849845537-4d257902454a?w=800&q=80" alt="Berger Allemand">
+                    <div class="card-badge">🕐 27 jours</div>
+                    <div class="verified-badge">✓ Vérifié</div>
+                    <button class="favorite-btn" onclick="toggleFavorite(this)">🤍</button>
+                </div>
+                <div class="card-content">
+                    <div class="card-price on-demand">Prix sur demande</div>
+                    <div class="card-title">Luna - Berger Allemand</div>
+                    <div class="card-description">
+                        Adorable chiot femelle de 1 mois, lignée pure race. Caractère doux et joueur. Parents avec excellent pedigree. Certificat de bonne santé disponible. Prête à rejoindre sa nouvelle famille.
+                    </div>
+                    <div class="card-location">📍 Yaoundé, Cameroun</div>
+                </div>
+            </div>
+
+            <div class="card" data-days="35" data-price="75000">
+                <div class="card-image">
+                    <img src="https://images.unsplash.com/photo-1537151608828-ea2b11777ee8?w=800&q=80" alt="Rottweiler">
+                    <div class="card-badge">🕐 35 jours</div>
+                    <div class="verified-badge">✓ Vérifié</div>
+                    <button class="favorite-btn" onclick="toggleFavorite(this)">🤍</button>
+                </div>
+                <div class="card-content">
+                    <div class="card-price">75 000 CFA</div>
+                    <div class="card-title">Duke - Rottweiler</div>
+                    <div class="card-description">
+                        Superbe Rottweiler de 2 mois, fort et équilibré. Excellent gardien en devenir. Élevé en famille avec enfants. Vaccination complète, suivi vétérinaire rigoureux. Papiers officiels fournis.
+                    </div>
+                    <div class="card-location">📍 Yaoundé, Cameroun</div>
+                </div>
+            </div>
+
+            <div class="card" data-days="42" data-price="120000">
+                <div class="card-image">
+                    <img src="https://images.unsplash.com/photo-1633722715463-d30f4f325e24?w=800&q=80" alt="Golden Retriever">
+                    <div class="card-badge">🕐 42 jours</div>
+                    <div class="verified-badge">✓ Vérifié</div>
+                    <button class="favorite-btn" onclick="toggleFavorite(this)">🤍</button>
+                </div>
+                <div class="card-content">
+                    <div class="card-price">120 000 CFA</div>
+                    <div class="card-title">Bella - Golden Retriever</div>
+                    <div class="card-description">
+                        Magnifique Golden Retriever femelle de 3 mois, au tempérament exceptionnel. Très affectueuse et intelligente. Parents primés en exposition. Parfaite pour famille avec enfants. LOF disponible.
+                    </div>
+                    <div class="card-location">📍 Yaoundé, Cameroun</div>
+                </div>
+            </div>
+
+            <div class="card" data-days="50" data-price="85000">
+                <div class="card-image">
+                    <img src="https://images.unsplash.com/photo-1603793303277-ed67787545e6?w=800&q=80" alt="Doberman">
+                    <div class="card-badge">🕐 50 jours</div>
+                    <div class="verified-badge">✓ Vérifié</div>
+                    <button class="favorite-btn" onclick="toggleFavorite(this)">🤍</button>
+                </div>
+                <div class="card-content">
+                    <div class="card-price">85 000 CFA</div>
+                    <div class="card-title">Max - Doberman</div>
+                    <div class="card-description">
+                        Superbe Doberman mâle de 4 mois, élégant et athlétique. Dressage de base commencé. Excellentes aptitudes de garde. Sociable avec les humains. Santé irréprochable, tous documents fournis.
+                    </div>
+                    <div class="card-location">📍 Yaoundé, Cameroun</div>
+                    <div class="social-buttons">
+                        <a href="https://www.facebook.com/sell.dog" target="_blank" class="social-btn facebook" title="Commander sur Facebook">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                            </svg>
+                        </a>
+                        <a href="https://wa.me/237673818077" target="_blank" class="social-btn whatsapp" title="Commander sur WhatsApp">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+                            </svg>
+                        </a>
+                        <a href="https://www.instagram.com/sell.dog5" target="_blank" class="social-btn instagram" title="Commander sur Instagram">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 0C8.74 0 8.333.015 7.053.072 5.775.132 4.905.333 4.14.63c-.789.306-1.459.717-2.126 1.384S.935 3.35.63 4.14C.333 4.905.131 5.775.072 7.053.012 8.333 0 8.74 0 12s.015 3.667.072 4.947c.06 1.277.261 2.148.558 2.913.306.788.717 1.459 1.384 2.126.667.666 1.336 1.079 2.126 1.384.766.296 1.636.499 2.913.558C8.333 23.988 8.74 24 12 24s3.667-.015 4.947-.072c1.277-.06 2.148-.262 2.913-.558.788-.306 1.459-.718 2.126-1.384.666-.667 1.079-1.335 1.384-2.126.296-.765.499-1.636.558-2.913.06-1.28.072-1.687.072-4.947s-.015-3.667-.072-4.947c-.06-1.277-.262-2.149-.558-2.913-.306-.789-.718-1.459-1.384-2.126C21.319 1.347 20.651.935 19.86.63c-.765-.297-1.636-.499-2.913-.558C15.667.012 15.26 0 12 0zm0 2.16c3.203 0 3.585.016 4.85.071 1.17.055 1.805.249 2.227.415.562.217.96.477 1.382.896.419.42.679.819.896 1.381.164.422.36 1.057.413 2.227.057 1.266.07 1.646.07 4.85s-.015 3.585-.074 4.85c-.061 1.17-.256 1.805-.421 2.227-.224.562-.479.96-.899 1.382-.419.419-.824.679-1.38.896-.42.164-1.065.36-2.235.413-1.274.057-1.649.07-4.859.07-3.211 0-3.586-.015-4.859-.074-1.171-.061-1.816-.256-2.236-.421-.569-.224-.96-.479-1.379-.899-.421-.419-.69-.824-.9-1.38-.165-.42-.359-1.065-.42-2.235-.045-1.26-.061-1.649-.061-4.844 0-3.196.016-3.586.061-4.861.061-1.17.255-1.814.42-2.234.21-.57.479-.96.9-1.381.419-.419.81-.689 1.379-.898.42-.166 1.051-.361 2.221-.421 1.275-.045 1.65-.06 4.859-.06l.045.03zm0 3.678c-3.405 0-6.162 2.76-6.162 6.162 0 3.405 2.76 6.162 6.162 6.162 3.405 0 6.162-2.76 6.162-6.162 0-3.405-2.76-6.162-6.162-6.162zM12 16c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm7.846-10.405c0 .795-.646 1.44-1.44 1.44-.795 0-1.44-.646-1.44-1.44 0-.794.646-1.439 1.44-1.439.793-.001 1.44.645 1.44 1.439z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" data-days="55" data-price="65000">
+                <div class="card-image">
+                    <img src="https://images.unsplash.com/photo-1505628346881-b72b27e84530?w=800&q=80" alt="Beagle">
+                    <div class="card-badge">🕐 55 jours</div>
+                    <div class="verified-badge">✓ Vérifié</div>
+                    <button class="favorite-btn" onclick="toggleFavorite(this)">🤍</button>
+                </div>
+                <div class="card-content">
+                    <div class="card-price">65 000 CFA</div>
+                    <div class="card-title">Charlie - Beagle</div>
+                    <div class="card-description">
+                        Adorable Beagle mâle de 2 mois, tricolore classique. Caractère joyeux et affectueux. Excellent compagnon de jeu pour enfants. Bien socialisé avec autres animaux. Tous vaccins effectués.
+                    </div>
+                    <div class="card-location">📍 Yaoundé, Cameroun</div>
+                    <div class="social-buttons">
+                        <a href="https://www.facebook.com/sell.dog" target="_blank" class="social-btn facebook" title="Commander sur Facebook">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                            </svg>
+                        </a>
+                        <a href="https://wa.me/237673818077" target="_blank" class="social-btn whatsapp" title="Commander sur WhatsApp">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+                            </svg>
+                        </a>
+                        <a href="https://www.instagram.com/sell.dog5" target="_blank" class="social-btn instagram" title="Commander sur Instagram">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 0C8.74 0 8.333.015 7.053.072 5.775.132 4.905.333 4.14.63c-.789.306-1.459.717-2.126 1.384S.935 3.35.63 4.14C.333 4.905.131 5.775.072 7.053.012 8.333 0 8.74 0 12s.015 3.667.072 4.947c.06 1.277.261 2.148.558 2.913.306.788.717 1.459 1.384 2.126.667.666 1.336 1.079 2.126 1.384.766.296 1.636.499 2.913.558C8.333 23.988 8.74 24 12 24s3.667-.015 4.947-.072c1.277-.06 2.148-.262 2.913-.558.788-.306 1.459-.718 2.126-1.384.666-.667 1.079-1.335 1.384-2.126.296-.765.499-1.636.558-2.913.06-1.28.072-1.687.072-4.947s-.015-3.667-.072-4.947c-.06-1.277-.262-2.149-.558-2.913-.306-.789-.718-1.459-1.384-2.126C21.319 1.347 20.651.935 19.86.63c-.765-.297-1.636-.499-2.913-.558C15.667.012 15.26 0 12 0zm0 2.16c3.203 0 3.585.016 4.85.071 1.17.055 1.805.249 2.227.415.562.217.96.477 1.382.896.419.42.679.819.896 1.381.164.422.36 1.057.413 2.227.057 1.266.07 1.646.07 4.85s-.015 3.585-.074 4.85c-.061 1.17-.256 1.805-.421 2.227-.224.562-.479.96-.899 1.382-.419.419-.824.679-1.38.896-.42.164-1.065.36-2.235.413-1.274.057-1.649.07-4.859.07-3.211 0-3.586-.015-4.859-.074-1.171-.061-1.816-.256-2.236-.421-.569-.224-.96-.479-1.379-.899-.421-.419-.69-.824-.9-1.38-.165-.42-.359-1.065-.42-2.235-.045-1.26-.061-1.649-.061-4.844 0-3.196.016-3.586.061-4.861.061-1.17.255-1.814.42-2.234.21-.57.479-.96.9-1.381.419-.419.81-.689 1.379-.898.42-.166 1.051-.361 2.221-.421 1.275-.045 1.65-.06 4.859-.06l.045.03zm0 3.678c-3.405 0-6.162 2.76-6.162 6.162 0 3.405 2.76 6.162 6.162 6.162 3.405 0 6.162-2.76 6.162-6.162 0-3.405-2.76-6.162-6.162-6.162zM12 16c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm7.846-10.405c0 .795-.646 1.44-1.44 1.44-.795 0-1.44-.646-1.44-1.44 0-.794.646-1.439 1.44-1.439.793-.001 1.44.645 1.44 1.439z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleFavorite(btn) {
+            if (btn.textContent === '🤍') {
+                btn.textContent = '❤️';
+            } else {
+                btn.textContent = '🤍';
+            }
+        }
+
+        function filterBy(type) {
+            const buttons = document.querySelectorAll('.filter-btn:not(.settings-btn)');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            
+            event.target.closest('.filter-btn').classList.add('active');
+            
+            const grid = document.getElementById('cardsGrid');
+            const cards = Array.from(grid.children);
+            
+            switch(type) {
+                case 'date':
+                    cards.sort((a, b) => {
+                        return parseInt(a.dataset.days) - parseInt(b.dataset.days);
+                    });
+                    break;
+                case 'price-up':
+                    cards.sort((a, b) => {
+                        const priceA = parseInt(a.dataset.price) || Infinity;
+                        const priceB = parseInt(b.dataset.price) || Infinity;
+                        return priceA - priceB;
+                    });
+                    break;
+                case 'price-down':
+                    cards.sort((a, b) => {
+                        const priceA = parseInt(a.dataset.price) || 0;
+                        const priceB = parseInt(b.dataset.price) || 0;
+                        return priceB - priceA;
+                    });
+                    break;
+                case 'top':
+                    cards.sort((a, b) => {
+                        return parseInt(a.dataset.days) - parseInt(b.dataset.days);
+                    });
+                    break;
+            }
+            
+            cards.forEach(card => grid.appendChild(card));
+        }
+
+        function openSettings() {
+            alert('Paramètres de filtrage avancés - Secure Dog 🛡️');
+        }
+
+        document.getElementById('searchInput').addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            const cards = document.querySelectorAll('.card');
+            
+            cards.forEach(card => {
+                const title = card.querySelector('.card-title').textContent.toLowerCase();
+                const description = card.querySelector('.card-description').textContent.toLowerCase();
+                const location = card.querySelector('.card-location').textContent.toLowerCase();
+                
+                if (title.includes(searchTerm) || description.includes(searchTerm) || location.includes(searchTerm)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
